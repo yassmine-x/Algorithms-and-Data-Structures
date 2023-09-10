@@ -6,8 +6,16 @@ const {
   zipper,
 } = require("./Linked Lists");
 
-describe("hello", () => {
-  test("adds 1 + 2 to equal 3", () => {
-    expect(findTargetValueI(1, 2)).toBe(3);
+describe("finding target value iteratively and recursively", () => {
+  class Node {
+    constructor(value) {
+      this.value = value;
+      this.next = null;
+    }
+  }
+
+  test("when there is one node", () => {
+    const a = new Node(1);
+    expect(findTargetValueR(a, 0)).toBe(1);
   });
 });
