@@ -73,5 +73,88 @@ function breadthFirstI(root) {
 
 console.log(breadthFirstI(a), "iterative solution");
 
-//recursive solution to breadth first search
-function breadthFirstR() {}
+//does tree include target value?
+
+function treeIncludes(root, target) {
+  if (root.val === null) {
+    return [];
+  }
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const current = queue.pop();
+    if (current.val === target) {
+      return true;
+    }
+    if (current.left) {
+      queue.unshift(current.left);
+    }
+    if (current.right) {
+      queue.unshift(current.right);
+    }
+  }
+  return false;
+}
+// console.log(treeIncludes(a, "d"));
+// console.log(treeIncludes(a, "p"));
+
+//does tree include target value? recursive
+function treeIncludesR(root, target, next) {
+  next = root.right;
+  if (root.left === null && root.right === null) {
+    return treeIncludesR(next);
+  }
+}
+
+//treeSumRecursive
+
+function treeSum(root) {
+  if (root.val === null) return 0;
+  return root.val + treeSum(root.left) + treeSum(root.right);
+}
+
+//find tree minimum value recursive
+function treeMin(root) {
+  if (root === null) {
+    return Infinity;
+  }
+  const left = treeMin(root.left);
+  const right = treeMin(root.right);
+
+  return Math.min(root.val, left, right);
+}
+
+const g = new Node(5);
+const h = new Node(4);
+const i = new Node(6);
+const j = new Node(1);
+const k = new Node(9);
+const l = new Node(10);
+
+g.left = h;
+g.right = i;
+h.left = j;
+h.right = k;
+i.left = l;
+
+console.log(treeMin(g));
+
+//find tree minimum value iterative
+
+function treeMinI(root) {
+  const stack = [root];
+  let smallest = Infinity;
+  while (stack.length > 0) {
+    let current = stack.pop();
+    if (current.val < smallest) {
+      smallest = current.val;
+    }
+    if (current.left !== null) {
+      stack.push(current.left);
+    }
+    if (current.right !== null) {
+      stack.push(current.right);
+    }
+  }
+  return smallest;
+}
