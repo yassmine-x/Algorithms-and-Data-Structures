@@ -158,3 +158,10 @@ function treeMinI(root) {
   }
   return smallest;
 }
+
+function treeMaxPath(root) {
+  if (root === null) return -Infinity;
+  if (root.left === null && root.right === null) return root.val;
+  const maxPath = Math.max(treeMaxPath(root.left), treeMaxPath(root.right));
+  return root.val + maxPath;
+}
