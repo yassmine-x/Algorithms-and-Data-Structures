@@ -38,18 +38,10 @@ const findTargetValueI = (head, index) => {
   }
 };
 
-// (1)(2)
-// head
-// count0
-// count0==index?
-//   find head.value
-// else count++
-//console.log(findTargetValueI(a,2),"hi")
-
 //reversing a linked list
-
 //iterative approach
 const reverseListI = (head) => {
+  if (head.next === null) return head;
   let prev = null;
   let current = head;
   while (current !== null) {
@@ -135,4 +127,5 @@ module.exports = {
   reverseListI,
   reverseListR,
   zipper,
+  Node,
 };
