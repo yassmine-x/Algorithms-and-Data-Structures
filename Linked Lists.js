@@ -39,6 +39,18 @@ const findTargetValueI = (head, index) => {
 };
 
 //reversing a linked list
+
+//reversing a linked list pseudo code
+
+//pointer to previous, beginning at null
+//pointer to current, beginning at head
+//pointer to next, beginning at current.next
+//stop when next is equal to null
+
+//n        <-    a         b ->       c
+//prev        current     next
+//.  prev        current   next
+
 //iterative approach
 const reverseListI = (head) => {
   if (head.next === null) return head;
@@ -52,15 +64,6 @@ const reverseListI = (head) => {
   }
 };
 
-//pointer to previous, beginning at null
-//pointer to current, beginning at head
-//pointer to next, beginning at current.next
-//stop when next is equal to null
-
-//n        <-    a         b ->       c
-//prev        current     next
-//.  prev        current   next
-
 //recursive approach
 
 const reverseListR = (head, prev = null) => {
@@ -72,36 +75,44 @@ const reverseListR = (head, prev = null) => {
   head.next = prev;
   return reverseListR(next, current);
 };
-//function should return new head of linked list
 
 //zipper function
 
-const s = new Node(6);
-const t = new Node(7);
+//zipper function pseudo code
+//head1 a ->      b -> c -> d -> null
+//     curr1   curr1.next
+//head2 s ->       t -> null
+//     curr2    curr2.next
 
-s.next = t;
+//we want curr1.next to equal curr2
+// we then want curr1 to equal curr1.next original
 
 //iterative solution
 
 const zipper = (head1, head2) => {
-  const tail = head1;
+  let tail = head1;
+  //the main list
   let current1 = head1;
   let current2 = head2;
 
-  count = 1;
-  while (current2 !== null) {
+  if (head1 === null && head2 === null) return null;
+  if (head1 === null) return head2;
+  if (head2 === null) return head1;
+
+  count = 0;
+  while (current2 !== null && current1 !== null) {
     if (count % 2 === 0) {
-      //even
+      // at even counts
       tail.next = current2;
       current2 = current2.next;
-      // curr1NextOriginal = current1.next
-      // current1.next=current2
-      // current2.next= curr1NextOriginal
+      //progress through list 2
     } else {
+      //at odd counts
       tail.next = current1;
-      current1.next;
+      current1 = current1.next;
     }
     tail = tail.next;
+    //progress through tail the main list
     count++;
     return tail;
   }
@@ -112,14 +123,9 @@ const zipper = (head1, head2) => {
   if (current2 !== null) {
     tail.next = current2;
   }
-};
-//head1 a ->      b -> c -> d -> null
-//     curr1   curr1.next
-//head2 s ->       t -> null
-//     curr2    curr2.next
 
-//we want curr1.next to equal curr2
-// we then want curr1 to equal curr1.next original
+  return head1;
+};
 
 module.exports = {
   findTargetValueR,
